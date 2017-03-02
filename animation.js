@@ -54,4 +54,8 @@ var circle = function(e){
 		     
 circle_button.addEventListener("click", circle);
 
-		     
+var stop = function(){
+    window.cancelAnimationFrame(rid);
+}
+
+stop_button.addEventListener("click", stop);
