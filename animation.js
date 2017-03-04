@@ -54,6 +54,54 @@ var circle = function(e){
 		     
 circle_button.addEventListener("click", circle);
 
+var getRandomX  = function(img_width){
+    return Math.floor(Math.random() * (width - img_width));
+}
+
+var getRandomY  = function(img_height){
+    return Math.floor(Math.random() * (height - img_height));
+}
+
+var makeImage = function(file, width, height, x, y){
+    var img = document.createElementNS("http://www.w3.org/2000/svg", "image");
+    img.setAttribute("id", "image");
+    img.setAttribute("width", width);
+    img.setAttribute("height", height);
+    img.setAttribute("x", x);
+    img.setAttribute("y", y);
+    img.setAttribute("href", file);
+    svg.appendChild(img);
+}
+
+var dvd = function(){
+    clear();
+    var img_width = 90;
+    var img_height = 60;
+    var x = getRandomX(img_width);
+    var y = getRandomY(img_height);
+    var inc_x = 1;
+    var inc_y = 1;
+    makeImage("dvd.png", img_width, img_height, x, y);
+    var img = document.getElementById("image");
+    window.cancelAnimationFrame(rid);
+    var animate = function(){
+	if(x == 0 || x == width - img_width){
+	    inc_x = inc_x * -1;
+	}
+	if(y == 0 || y == height - img_height){
+	    inc_y = inc_y * -1;
+	}
+	img.setAttribute("x", x);
+	img.setAttribute("y", y);
+	x = x + inc_x;
+	y = y + inc_y;
+	rid = window.requestAnimationFrame(animate);
+    }
+    animate();
+}
+
+dvd_button.addEventListener("click", dvd);
+
 var stop = function(){
     window.cancelAnimationFrame(rid);
 }
